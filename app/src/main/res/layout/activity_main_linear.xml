@@ -5,7 +5,7 @@
 
 
    <TextView
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:textSize="30dp"
        android:text="Look at my GUI" />
@@ -18,13 +18,15 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
+            android:gravity="fill"
             android:text="Click here" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
+            android:gravity="fill"
             android:text="Check this out" />
 
     </LinearLayout>
@@ -37,13 +39,13 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:src="@drawable/flag"/>
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:text="Switch on and off "/>
 
     </LinearLayout>
@@ -51,6 +53,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type here"/>
+        android:inputType="textPersonName"
+        android:hint="Type here"/>
 
 </LinearLayout>
