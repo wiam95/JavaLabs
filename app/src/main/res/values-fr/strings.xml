@@ -3,4 +3,9 @@
     <string name="app_name">Lab1</string>
     <string name="hello_message">Bonjour!</string>
     <string name="ButtonText">Je suis un boutton</string>
+    <string name="look">Regardez a mon GUI!</string>
+    <string name="click">Cliquez ici</string>
+    <string name="check">Regardez a ca</string>
+    <string name="onOff">allumer ou éteindre ></string>
+    <string name="typeHere">Ecrire ici</string>
 </resources>
