@@ -44,10 +44,21 @@ public class MainActivity extends AppCompatActivity {
                 cb.setChecked(isChecked);
                 Toast.makeText(getApplicationContext(),"Here is more information",Toast.LENGTH_LONG).show();
 
-                if(isChecked == true)
-                    Snackbar.make(view, "The switch is now on",2000).show();
-                if(isChecked == false)
-                    Snackbar.make(view, "Off",2000).show();
+                if(isChecked == true) {
+                    Snackbar bar = Snackbar.make(view, "The switch is now on", 2000);
+
+                        bar.setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View click) {
+                                cb.setChecked(false);
+                            }
+                        });
+                        bar.show();
+
+                }
+                if(isChecked == false) {
+                    Snackbar.make(view, "Off", 2000).show();
+                }
             }
         });
 
