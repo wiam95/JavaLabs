@@ -10,4 +10,11 @@
     <string name="enter_email">Enter your email address:</string>
     <string name="Login">Login</string>
     <string name="password">Type your password:</string>
+    <string name="profile">Your profile</string>
+    <string name="name">Your name:</string>
+    <string name="enterName">Enter your name</string>
+    <string name="yourEmail">Your email:</string>
+    <string name="picture">Your picture:</string>
+    <string name="takePic">Click the button above to take a picture</string>
+
 </resources>

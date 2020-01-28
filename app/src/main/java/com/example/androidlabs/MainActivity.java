@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.*;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,32 @@ public class MainActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
 
+        Intent nextPage = new Intent(this, ProfileActivity.class);
+        Button secondButton = findViewById(R.id.Login);
+        //secondButton.setOnClickListener( click -> startActivity( nextPage ));
+
 
     }
 
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
