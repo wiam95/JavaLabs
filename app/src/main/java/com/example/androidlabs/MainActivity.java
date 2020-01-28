@@ -19,48 +19,23 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn;
+    Button login;
     CheckBox cb;
     Switch sw;
-    EditText et;
+    EditText email, password;
     View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_linear);
+        setContentView(R.layout.activity_main);
 
         view = findViewById(R.id.main_layout);
 
-        btn = (Button)findViewById(R.id.Button);
-        cb = (CheckBox)findViewById(R.id.checkBox);
-        sw = (Switch)findViewById(R.id.Switch);
-        et = (EditText)findViewById(R.id.editText);
-
-        //Checks the checkbox then releases a toast message to user
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                cb.setChecked(isChecked);
-                Toast.makeText(getApplicationContext(),"Here is more information",Toast.LENGTH_LONG).show();
-
-                if(isChecked == true) {
-                    Snackbar bar = Snackbar.make(view, "The switch is now on", 2000);
-
-                        bar.setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View click) {
-                                cb.setChecked(false);
-                            }
-                        });
-                        bar.show();
-
-                }
-                if(isChecked == false) {
-                    Snackbar.make(view, "Off", 2000).show();
-                }
-            }
-        });
+        //Set up the buttons
+        login = (Button)findViewById(R.id.Login);;
+        email = (EditText)findViewById(R.id.email);
+        password = (EditText)findViewById(R.id.password);
 
 
     }

@@ -7,4 +7,7 @@
     <string name="check">Check this out</string>
     <string name="onOff">Switch on and off></string>
     <string name="typeHere">Type here</string>
+    <string name="enter_email">Enter your email address:</string>
+    <string name="Login">Login</string>
+    <string name="password">Type your password:</string>
 </resources>

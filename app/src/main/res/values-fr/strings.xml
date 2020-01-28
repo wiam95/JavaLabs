@@ -8,4 +8,7 @@
     <string name="check">Regardez a ca</string>
     <string name="onOff">allumer ou éteindre ></string>
     <string name="typeHere">Ecrire ici</string>
+    <string name="enter_email">Entrez votre email:</string>
+    <string name="Login">Login</string>
+    <string name="password">Entrez votre password:</string>
 </resources>
