@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.lang.*;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +21,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    SharedPreferences prefs = null;
 
     Button login;
     CheckBox cb;
@@ -43,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         //secondButton.setOnClickListener( click -> startActivity( nextPage ));
 
 
+        prefs = getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        String savedString = prefs.getString("ReserveName", "");
+        EditText typeField = findViewById(R.id.email);
+        typeField.setText(savedString);
+
+        login = findViewById(R.id.Login);
+
+        //saveButton.setOnClickListener( bt -> saveSharedPrefs( typeField.getText().toString()) );
+        //login.setOnClickListener();
+
     }
 
     /*
@@ -55,15 +69,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.e("Main Activity", "In onStart()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("Main Activity", "In onPause()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    //Saves the sharedPrefs
+    private void saveSharedPrefs(String stringToSave)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("ReserveName", stringToSave);
+        editor.commit();
     }
 }
