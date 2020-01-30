@@ -42,29 +42,29 @@ public class MainActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
 
-        Intent nextPage = new Intent(this, ProfileActivity.class);
-        Button secondButton = findViewById(R.id.Login);
-        //secondButton.setOnClickListener( click -> startActivity( nextPage ));
-
 
         prefs = getSharedPreferences("FileName", Context.MODE_PRIVATE);
         String savedString = prefs.getString("ReserveName", "");
         EditText typeField = findViewById(R.id.email);
         typeField.setText(savedString);
 
-        login = findViewById(R.id.Login);
+        //Click listener (once user clicks login)
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //saveButton.setOnClickListener( bt -> saveSharedPrefs( typeField.getText().toString()) );
-        //login.setOnClickListener();
+                //Goes to next page
+                Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
+
+                //Next line is to pass email to the next page
+                goToProfile.putExtra("EMAIL", email.getText().toString());
+                startActivity(goToProfile); //startActivityForResult(nextPage, result) if you expect data back
+
+            }
+        });
+
 
     }
-
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    */
 
     @Override
     protected void onStart() {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Main Activity", "In onPause()");
+        saveSharedPrefs(email.getText().toString());
     }
 
     @Override
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    //Saves the sharedPrefs
+    //Saves the data to file
     private void saveSharedPrefs(String stringToSave)
     {
         SharedPreferences.Editor editor = prefs.edit();
