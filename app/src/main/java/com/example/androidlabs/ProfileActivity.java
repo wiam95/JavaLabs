@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -19,9 +20,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     static ImageButton mImageButton;
 
-
     EditText name, email;
     ImageButton camera;
+    Button goToChat;
     View view;
 
 
@@ -34,9 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         name = (EditText)findViewById(R.id.enterName);
         email = (EditText)findViewById(R.id.enterEmail);
-        //camera = (ImageButton)findViewById(R.id.camera);
         mImageButton = (ImageButton)findViewById(R.id.camera);
-
+        goToChat = (Button)findViewById(R.id.goToChat);
 
         //Next three lines are to obtain email from previous page
         Intent fromMain = getIntent();
@@ -53,13 +53,24 @@ public class ProfileActivity extends AppCompatActivity {
             //Calls method given by prof in lab
             dispatchTakePictureIntent();
 
+            }
+        });
+
+        //Sends user to the chat page
+        goToChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Goes to chat room page from this page
+                Intent goToChat = new Intent(ProfileActivity.this, ChatRoomActivity.class);
+                startActivity(goToChat);
 
             }
         });
 
-
     }
 
+    //Handles taking the picture
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -67,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    //Returns the picture
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
