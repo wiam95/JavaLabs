@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     EditText email, password;
     View view;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         String savedString = prefs.getString("ReserveName", "");
         EditText typeField = findViewById(R.id.email);
         typeField.setText(savedString);
+
 
         //Click listener (once user clicks login)
         login.setOnClickListener(new View.OnClickListener() {
