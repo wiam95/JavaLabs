@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     View view;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
