@@ -12,7 +12,7 @@
 
     <Button
         android:id="@+id/send"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/send"/>
@@ -20,7 +20,7 @@
 
     <EditText
         android:id="@+id/typeHere"
-        android:layout_width="130dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/send"
         android:layout_alignParentBottom="true"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/receive"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/typeHere"
         android:layout_alignParentBottom="true"

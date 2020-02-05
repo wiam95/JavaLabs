@@ -63,17 +63,17 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
         //If you click on a message
-        myList.setOnItemClickListener( (p, b, pos, id) ->{
+        myList.setOnItemLongClickListener( (parent, view, position, id) ->{
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this?")
 
                     //What is the message:
-                    .setMessage("Do you want to add stuff")
+                    .setMessage("The selected row is " + position + "\nThe database id is " + id)
 
                     //what the Yes button does:
                     .setPositiveButton("Yes", (click, arg) -> {
-                        //elements.remove(elements.pos);  //Debug this line needs to remove the element clicked on
+                        elements.remove(position);
                         myAdapter.notifyDataSetChanged();
                     })
 
@@ -83,7 +83,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     //Show the dialog
                     .create().show();
 
-           // return true;
+            return true;
 
         });
 
@@ -105,7 +105,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             //make a new row:
             if(newView == null) {
-                newView = inflater.inflate(R.layout.message, parent, false);
+                newView = inflater.inflate(R.layout.message_send, parent, false);
 
             }
 
