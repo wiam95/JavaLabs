@@ -24,6 +24,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     Button send, receive;
     EditText msg;
 
+    boolean msgSendFormat = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,18 @@ public class ChatRoomActivity extends AppCompatActivity {
         receive = (Button) findViewById(R.id.receive);
         msg = (EditText) findViewById(R.id.typeHere);
 
+
+
         //When user clicks on the receive button
         receive.setOnClickListener(new View.OnClickListener() {
 
+
+
             @Override
             public void onClick(View v) {
+
+                msgSendFormat = false; //Added to know which layout to use
+
                 elements.add(msg.getText().toString());
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
@@ -54,6 +62,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                msgSendFormat = true;
+
                 elements.add(msg.getText().toString());
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
@@ -105,7 +116,10 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             //make a new row:
             if(newView == null) {
-                newView = inflater.inflate(R.layout.message_send, parent, false);
+                if (msgSendFormat)
+                    newView = inflater.inflate(R.layout.message_send, parent, false);
+                else
+                    newView = inflater.inflate(R.layout.message, parent, false);
 
             }
 
