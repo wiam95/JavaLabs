@@ -7,13 +7,14 @@
 
     <TextView
         android:id="@+id/displayMsg"
-        android:layout_width="match_parent"
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
         android:gravity="right"/>
 
+
     <ImageView
         android:id="@+id/sendImg"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/row_send" />
 
