@@ -18,13 +18,11 @@ import java.util.Arrays;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private ArrayList<String> elements = new ArrayList<>();
+    private ArrayList<Message> elements = new ArrayList<>();
     private MyListAdapter myAdapter;
 
     Button send, receive;
     EditText msg;
-
-    boolean msgSendFormat = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +30,20 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
 
         ListView myList = findViewById(R.id.list);
-        myList.setAdapter( myAdapter = new MyListAdapter());
+        myList.setAdapter(myAdapter = new MyListAdapter());
 
         send = (Button) findViewById(R.id.send);
         receive = (Button) findViewById(R.id.receive);
         msg = (EditText) findViewById(R.id.typeHere);
 
 
-
         //When user clicks on the receive button
         receive.setOnClickListener(new View.OnClickListener() {
-
-
 
             @Override
             public void onClick(View v) {
 
-                msgSendFormat = false; //Added to know which layout to use
-
-                elements.add(msg.getText().toString());
+                elements.add(new Message(msg.getText().toString(), 1));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -63,9 +56,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                msgSendFormat = true;
-
-                elements.add(msg.getText().toString());
+                elements.add(new Message(msg.getText().toString(), 0));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -74,7 +65,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
         //If you click on a message
-        myList.setOnItemLongClickListener( (parent, view, position, id) ->{
+        myList.setOnItemLongClickListener((parent, view, position, id) -> {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this?")
@@ -89,7 +80,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     })
 
                     //What the No button does:
-                    .setNegativeButton("No", (click, arg) -> { })
+                    .setNegativeButton("No", (click, arg) -> {
+                    })
 
                     //Show the dialog
                     .create().show();
@@ -102,36 +94,66 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private class MyListAdapter extends BaseAdapter {
 
-        public int getCount() { return elements.size(); }
+        public int getCount() {
+            return elements.size();
+        }
 
         //public Object getItem(int position) { return "This is row " + position; }
-        public Object getItem(int position) { return elements.get(position); }
+        public Message getItem(int position) {
+            return elements.get(position);
+        }
 
-        public long getItemId(int position) { return (long) position; }
+        public long getItemId(int position) {
+            return (long) position;
+        }
 
         public View getView(int position, View old, ViewGroup parent) {
 
-            View newView = old;
+            View newView;
             LayoutInflater inflater = getLayoutInflater();
 
-            //make a new row:
-            if(newView == null) {
-                if (msgSendFormat)
-                    newView = inflater.inflate(R.layout.message_send, parent, false);
-                else
-                    newView = inflater.inflate(R.layout.message, parent, false);
-
+            if (elements.get(position).getType() == 1) {
+                newView = inflater.inflate(R.layout.message_send, parent, false);
             }
-
+            else {
+                newView = inflater.inflate(R.layout.message, parent, false);
+            }
             //set what the text should be for this row:
             TextView tView = newView.findViewById(R.id.displayMsg);
-            tView.setText( getItem(position).toString() );
+            //tView.setText(getItem(position).toString());
+            tView.setText(elements.get(position).getMsg());
 
             //return it to be put in the table
             return newView;
 
         }
 
+    }
+
+    public static class Message {
+        private String msg;
+        private int type; // 0 is send 1 is receive
+
+        public Message(String msg, int type) {
+            this.msg = msg;
+            this.type = type;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
     }
 
 }
