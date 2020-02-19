@@ -3,6 +3,9 @@ package com.example.androidlabs;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private ArrayList<Message> elements = new ArrayList<>();
     private MyListAdapter myAdapter;
+
+    SQLiteDatabase db;
 
     Button send, receive;
     EditText msg;
@@ -43,7 +48,16 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                elements.add(new Message(msg.getText().toString(), 1));
+                String message = msg.getText().toString();
+
+                ContentValues newRowValues = new ContentValues();
+
+                newRowValues.put(MyOpener.COL_MESSAGE, message);
+                newRowValues.put(MyOpener.COL_TYPE, 1);
+
+                long newID = db.insert(MyOpener.TABLE_NAME, null, newRowValues );
+
+                elements.add(new Message(msg.getText().toString(), 1, newID));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -56,7 +70,17 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                elements.add(new Message(msg.getText().toString(), 0));
+                String message = msg.getText().toString();
+
+                ContentValues newRowValues = new ContentValues();
+
+                newRowValues.put(MyOpener.COL_MESSAGE, message);
+                newRowValues.put(MyOpener.COL_TYPE, 0);
+
+                long newID = db.insert(MyOpener.TABLE_NAME, null, newRowValues );
+
+
+                elements.add(new Message(msg.getText().toString(), 0, newID));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -130,30 +154,38 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     }
 
+    //Message class
     public static class Message {
         private String msg;
         private int type; // 0 is send 1 is receive
+        private long id;
 
-        public Message(String msg, int type) {
+        //Constructor
+        public Message(String msg, int type, long id) {
             this.msg = msg;
             this.type = type;
+            this.id = id;
         }
 
+        //Get methods
         public String getMsg() {
             return msg;
         }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
         public int getType() {
             return type;
         }
+        public long getID() { return id; }
 
+        //Set methods
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
         public void setType(int type) {
             this.type = type;
         }
+        public void setID(long id) { this.id = id; }
+
     }
+
 
 }
