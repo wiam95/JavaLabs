@@ -24,7 +24,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<Message> elements = new ArrayList<>();
     private MyListAdapter myAdapter;
 
-    SQLiteDatabase db;
+    MyOpener myOpener;
+
 
     Button send, receive;
     EditText msg;
@@ -41,6 +42,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         receive = (Button) findViewById(R.id.receive);
         msg = (EditText) findViewById(R.id.typeHere);
 
+        myOpener = new MyOpener(this);
+
 
         //When user clicks on the receive button
         receive.setOnClickListener(new View.OnClickListener() {
@@ -50,14 +53,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 String message = msg.getText().toString();
 
-                ContentValues newRowValues = new ContentValues();
+                long newID = myOpener.insertMessage(message, 1);
 
-                newRowValues.put(MyOpener.COL_MESSAGE, message);
-                newRowValues.put(MyOpener.COL_TYPE, 1);
-
-                long newID = db.insert(MyOpener.TABLE_NAME, null, newRowValues );
-
-                elements.add(new Message(msg.getText().toString(), 1, newID));
+                elements.add(new Message(message, 1, newID));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -72,15 +70,10 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 String message = msg.getText().toString();
 
-                ContentValues newRowValues = new ContentValues();
+                long newID = myOpener.insertMessage(message, 1);
 
-                newRowValues.put(MyOpener.COL_MESSAGE, message);
-                newRowValues.put(MyOpener.COL_TYPE, 0);
-
-                long newID = db.insert(MyOpener.TABLE_NAME, null, newRowValues );
-
-
-                elements.add(new Message(msg.getText().toString(), 0, newID));
+                elements.add(new Message(message, 0, newID));
+                //elements.add(new Message(msg.getText().toString(), 0, newID));
                 msg.getText().clear();
                 myAdapter.notifyDataSetChanged();
             }
@@ -100,6 +93,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                     //what the Yes button does:
                     .setPositiveButton("Yes", (click, arg) -> {
                         elements.remove(position);
+
+                        myOpener.removeRow(position);
+
                         myAdapter.notifyDataSetChanged();
                     })
 
