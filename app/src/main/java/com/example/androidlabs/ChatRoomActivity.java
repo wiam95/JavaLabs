@@ -26,7 +26,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     MyOpener myOpener;
 
-
     Button send, receive;
     EditText msg;
 

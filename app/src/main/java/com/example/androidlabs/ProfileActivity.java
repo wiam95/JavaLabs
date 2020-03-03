@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Goes to chat room page from this page
-                Intent goToWeather = new Intent(ProfileActivity.this, ChatRoomActivity.class);
+                Intent goToWeather = new Intent(ProfileActivity.this, WeatherForecast.class);
                 startActivity(goToWeather);
 
             }

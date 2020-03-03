@@ -37,7 +37,11 @@
         android:layout_height="wrap_content"
         android:text="UV Rating"/>
 
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
