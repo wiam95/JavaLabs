@@ -19,5 +19,7 @@
     <string name="goToChat">Go to chat</string>
     <string name="send">SEND</string>
     <string name="receive">RECEIVE</string>
+    
+    <string name="goToWeather">Weather Forecast</string>
 
 </resources>

@@ -70,7 +70,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 String message = msg.getText().toString();
 
-                long newID = myOpener.insertMessage(message, 1);
+                long newID = myOpener.insertMessage(message, 0);
 
                 elements.add(new Message(message, 0, newID));
                 //elements.add(new Message(msg.getText().toString(), 0, newID));
@@ -109,6 +109,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             return true;
 
         });
+
+        myOpener.printCursor();
 
     }
 

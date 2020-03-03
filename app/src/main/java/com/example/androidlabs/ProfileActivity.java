@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     EditText name, email;
     ImageButton camera;
-    Button goToChat;
+    Button goToChat, goToWeather;
     View view;
 
 
@@ -37,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.enterEmail);
         mImageButton = (ImageButton)findViewById(R.id.camera);
         goToChat = (Button)findViewById(R.id.goToChat);
+        goToWeather = (Button)findViewById(R.id.goToWeather);
 
         //Next three lines are to obtain email from previous page
         Intent fromMain = getIntent();
@@ -64,6 +65,18 @@ public class ProfileActivity extends AppCompatActivity {
                 //Goes to chat room page from this page
                 Intent goToChat = new Intent(ProfileActivity.this, ChatRoomActivity.class);
                 startActivity(goToChat);
+
+            }
+        });
+
+        //Sends user to the weather forecast page
+        goToWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Goes to chat room page from this page
+                Intent goToWeather = new Intent(ProfileActivity.this, ChatRoomActivity.class);
+                startActivity(goToWeather);
 
             }
         });

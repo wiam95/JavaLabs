@@ -21,4 +21,6 @@
     <string name="send">ENVOYER</string>
     <string name="receive">RECEVOIR</string>
 
+    <string name="goToWeather">prévisions météorologiques</string>
+
 </resources>

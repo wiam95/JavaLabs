@@ -25,8 +25,8 @@ public class MyOpener extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_MESSAGE + "text,"
-                + COL_TYPE + "integer);" );  // add or remove columns
+                + COL_MESSAGE + " text,"
+                + COL_TYPE + " integer);" );  // add or remove columns
     }
 
     //this function gets called if the database version on your device is lower than VERSION_NUM
@@ -83,7 +83,7 @@ public class MyOpener extends SQLiteOpenHelper {
 
         int count = cursor.getCount();
 
-        int colIndex = cursor.getColumnIndex("COL_MESSAGE");
+        int colIndex = cursor.getColumnIndex(COL_MESSAGE);
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
@@ -96,16 +96,6 @@ public class MyOpener extends SQLiteOpenHelper {
         Log.d("version Number", Integer.toString(db.getVersion()));
         Log.d("num Cols", Integer.toString(cursor.getColumnCount()));
         Log.d("getCount Num of rows ", Integer.toString(count));
-    }
-
-
-    //View data
-    public Cursor viewData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select * from " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query, null);
-
-        return cursor;
     }
 
 
