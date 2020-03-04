@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,7 +53,7 @@ public class WeatherForecast extends AppCompatActivity {
     //Obtains the weather from the website
     private class ForecastQuery extends AsyncTask<String, Integer, String> {
 
-        String currTemp, minTemp, maxTemp, UVRating;
+        String curr, min, max, UV;
         Bitmap weatherImg;
 
         @Override
@@ -66,28 +69,63 @@ public class WeatherForecast extends AppCompatActivity {
                 //open the connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-                if (urlConnection.getResponseCode() == 200) {
+                //wait for data:
+                InputStream response = urlConnection.getInputStream();
 
-                    //wait for data:
-                    InputStream response = urlConnection.getInputStream();
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                factory.setNamespaceAware(false);
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput( response  , "UTF-8");
 
-                    StringBuffer sb = new StringBuffer();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(response));
 
-                    String line = br.readLine();
+                //From part 3, slide 20
+                String parameter = null;
 
-                    while(line != null) {
-                        //Print out the line here before continuing (add this)
-                        line = br.readLine();
+                int eventType = xpp.getEventType(); //The parser is currently at START_DOCUMENT
 
+                while(eventType != XmlPullParser.END_DOCUMENT)
+                {
+
+                    if(eventType == XmlPullParser.START_TAG)
+                    {
+                        //If you get here, then you are pointing at a start tag
+                        if(xpp.getName().equals("Weather"))
+                        {
+                            //If you get here, then you are pointing to a <Weather> start tag
+                            String outlook = xpp.getAttributeValue(null,    "outlook");
+                            String windy = xpp.getAttributeValue(null, "windy");
+                            parameter = xpp.getAttributeValue(null, "icon"); //this will run for <Weather windy="paramter"  >
+                        }
+
+                        else if(xpp.getName().equals("AMessage"))
+                        {
+                            parameter = xpp.getAttributeValue(null, "message"); // this will run for <AMessage message="parameter" >
+                        }
+                        else if(xpp.getName().equals("Weather"))
+                        {
+                            parameter = xpp.getAttributeValue(null, "outlook"); //this will run for <Weather outlook="parameter"
+                            parameter = xpp.getAttributeValue(null, "windy"); //this will run for <Weather windy="paramter"  >
+                        }
+                        else if(xpp.getName().equals("Temperature"))
+                        {
+                            xpp.next(); //move the pointer from the opening tag to the TEXT event
+                            parameter = xpp.getText(); // this will return  20
+                            curr = xpp.getAttributeValue(null, "value"); //this will run for <Weather windy="paramter"  >
+                            //publishProgress(25);
+                            //publishProgress(50);
+                            //publishProgress(75);
+
+                            min = xpp.getAttributeValue(null, "min"); //this will run for <Weather windy="paramter"  >
+                            max = xpp.getAttributeValue(null, "max"); //this will run for <Weather windy="paramter"  >
+                        }
                     }
-
+                    eventType = xpp.next(); //move to the next xml event and store it in a variable
                 }
 
             }
             catch (Exception e)
             {
-
+                Log.e("Error", e.getMessage());
             }
 
             return "Done";
@@ -104,6 +142,10 @@ public class WeatherForecast extends AppCompatActivity {
             Log.i("HTTP", fromDoInBackground);
         }
 
+
+        //currTemp = curr;
+        //minTemp = min;
+        //maxTemp = max;
 
     }
 
